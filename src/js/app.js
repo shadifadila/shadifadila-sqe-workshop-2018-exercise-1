@@ -7,10 +7,10 @@ $(document).ready(function () {
     $('#codeSubmissionButton').click(() => {
         let codeToParse = $('#codePlaceholder').val();
         let parsedCode = parseCode(codeToParse);
-        //$('#parsedCode').val(JSON.stringify(parsedCode, null, -1));
+        $('#parsedCode').val(JSON.stringify(parsedCode, null, 2));
         //$('#parsedCode').val(JSON.stringify(start(parsedCode), null, 2));
         resutl_table(start(parsedCode));
-        $('#parsedCode').val(JSON.stringify( start(parsedCode), null, -1));
+        //$('#parsedCode').val(JSON.stringify( start(parsedCode), null, -1));
 
     });
 });

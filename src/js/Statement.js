@@ -44,14 +44,7 @@ function IfStatement(code) {
     rows.push({'Line' : code.loc.start.line, 'Type': 'if statement' ,'Name': '','Condition' : parseExpression(code.test).toString(),'Value': ''});
     parse_elements(code.consequent);
     if(code.alternate != null) {
-
-        if(isIfStatement(code.alternate))
-        {
-            rows.push({'Line' : code.alternate.loc.start.line, 'Type': 'else if statement' ,'Name': '','Condition' : parseExpression(code.alternate.test) ,'Value': ''});
-            parse_elements(code.alternate.alternate);
-        }
-        else
-            parse_elements(code.alternate);
+        parse_elements(code.alternate);
     }
 
 }
@@ -87,10 +80,7 @@ function DoWhileStatement(code) {
 
 
 
-function  isIfStatement(code) {
-    return code.type === 'IfStatement';
 
-}
 function isVariableDeclaration(code) {
     return code.type === 'VariableDeclaration';
 
