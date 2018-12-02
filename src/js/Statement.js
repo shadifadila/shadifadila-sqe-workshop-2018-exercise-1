@@ -41,7 +41,7 @@ function WhileStatement(code) {
     });
 }
 function IfStatement(code) {
-    rows.push({'Line' : code.loc.start.line, 'Type': 'if statement' ,'Name': '','Condition' : parseExpression(code.test).toString(),'Value': ''});
+    rows.push({'Line' : code.loc.start.line, 'Type': 'if statement' ,'Name': '','Condition' : parseExpression(code.test,null).toString(),'Value': ''});
     parse_elements(code.consequent);
     if(code.alternate != null) {
         parse_elements(code.alternate);
@@ -75,6 +75,14 @@ function DoWhileStatement(code) {
 
 }
 
+function BlockStatement(code){
+    code.body.map((p) => {
+        parse_elements(p);
+    });
+}
+function EmptyStatement(code) {
+    rows.push({'Line' : code.loc.start.line, 'Type': code.type ,'Name': '','Condition' : '' ,'Value': ''});
+}
 
 /*######################  is Ture False ###################### */
 
@@ -104,6 +112,8 @@ let dict = {
     'ReturnStatement' :ReturnStatement,
     'ForStatement' :ForStatement,
     'DoWhileStatement' : DoWhileStatement,
+    'BlockStatement' : BlockStatement,
+    'EmptyStatement' :EmptyStatement,
 
 };
 

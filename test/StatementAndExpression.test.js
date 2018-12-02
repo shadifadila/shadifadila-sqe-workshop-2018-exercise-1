@@ -4,6 +4,9 @@ import {start} from '../src/js/Statement';
 
 describe('The javascript parser', () => {
     it(' empty', () => { assert.equal( JSON.stringify(start(parseCode(''))),'[]'); });
+    it(' ;', () => { assert.equal( JSON.stringify(start(parseCode(';'))),'[{"Line":1,"Type":"EmptyStatement","Name":"","Condition":"","Value":""}]'); });
+    it(' if(x=5){}', () => { assert.equal( JSON.stringify(start(parseCode('if(x=5){}'))),'[{"Line":1,"Type":"if statement","Name":"","Condition":"x=5","Value":""}]'); });
+    it(' if(x==5){let v=6;} ', () => { assert.equal( JSON.stringify(start(parseCode('if(x==5){let v=6;}'))),'[{"Line":1,"Type":"if statement","Name":"","Condition":"x==5","Value":""},{"Line":1,"Type":"variable declaration","Name":"v","Condition":"","Value":"6"}]'); });
     it(' nul EXP Test', () => { assert.equal( JSON.stringify(start(JSON.parse('{"type":"Program","body":[{"type":"ExpressionStatement","expression":{"type":"UnKnownExp","value":5,"raw":"5","loc":{"start":{"line":1,"column":0},"end":{"line":1,"column":1}}},"loc":{"start":{"line":1,"column":0},"end":{"line":1,"column":1}}}],"sourceType":"script","loc":{"start":{"line":1,"column":0},"end":{"line":1,"column":1}}}'))),'[]'); });
     it(' For with var dec ', () => { assert.equal( JSON.stringify(start(parseCode('for(let I=8; I<18;i++) { k++;}'))),'[{"Line":1,"Type":"for statement","Name":"","Condition":"I<18","Value":""},{"Line":1,"Type":"variable declaration","Name":"I","Condition":"","Value":"8"},{"Line":1,"Type":"Update Expression","Name":"","Condition":"","Value":"i++"},{"Line":1,"Type":"Update Expression","Name":"","Condition":"","Value":"k++"}]'); });
     it(' If then', () => { assert.equal( JSON.stringify(start(parseCode('if(x < 10 && y > 1) x=6;'))),'[{"Line":1,"Type":"if statement","Name":"","Condition":"x<10&&y>1","Value":""},{"Line":1,"Type":"assignment expression","Name":"x","Condition":"","Value":"6"}]'); });

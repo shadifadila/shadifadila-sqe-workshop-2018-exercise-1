@@ -23,8 +23,8 @@ function Literal(code,lst) {
 }
 
 function AssignmentExpression(code,lst) {
-    // if(lst!=null)
-    lst.push({'Line' : code.loc.start.line, 'Type': 'assignment expression' ,'Name': parseExpression(code.left,null),'Condition' : '','Value': parseExpression(code.right,null) });
+    if(lst!=null)
+        lst.push({'Line' : code.loc.start.line, 'Type': 'assignment expression' ,'Name': parseExpression(code.left,null),'Condition' : '','Value': parseExpression(code.right,null) });
     return parseExpression(code.left,null) + code.operator + parseExpression(code.right,null) ;
 }
 function Identifier(code,lst) {
